@@ -4,9 +4,9 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+//use mkfifo -m 0666 file_name to create fifo 
 
 int main(int argc,char const *argv[])   {
-
 
     int fd,num[2],sum=0;
     
