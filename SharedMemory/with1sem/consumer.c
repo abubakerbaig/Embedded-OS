@@ -9,10 +9,11 @@
 #include <sys/types.h>
 #include <sys/mman.h>
 #include <semaphore.h>
+#include <string.h>
 
 #define SNAME1 "/mysem1"
 
-
+char str[10];
 char *data;
 
 int main(int argc, char const *argv[])
@@ -40,6 +41,9 @@ int main(int argc, char const *argv[])
         sleep(1);
         sem_wait(sem_prod); //since sem= 0 ; wait for producer to produce something
         printf("Consumer: Accquiring lock \n Consumer: string received from shared memory is : %s\n", data);
+        printf("writng shared memory:\n");
+        scanf("%s", str);
+        strcpy(data, str);
         sleep(1);
         printf("Consumer: Realising lock\n");
         sem_post(sem_prod); //signal producer data read

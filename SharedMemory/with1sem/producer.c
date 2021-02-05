@@ -39,7 +39,8 @@ int main(int argc, char const *argv[])
     printf("producer: checking for lock\n");
     sleep(1);
     sem_wait(sem_prod); //since sem_cons= 1; wait for consumer to have an open slot
-    printf("producer: Inside producer, accquired lock\nproducer: enter string to store in shared memory:\n");
+    printf("producer: Inside producer, accquired lock\nreading shared memory----> %s.\n",str);
+    printf("\nproducer: enter string to store in shared memory:\n");
     scanf("%s", data);
     strcpy(str, data);
     printf("producer: Realising lock");
