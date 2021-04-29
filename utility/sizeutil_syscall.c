@@ -9,7 +9,7 @@ int main(int argc, char const *agrv[])  {
 
     stat(agrv[1], &buf);
 
-    printf("Zide of the file \"%s\" is %lld bytes.\n", agrv[1], buf.st_size);
+    printf("Side of the file \"%s\" is %lld bytes.\n", agrv[1], buf.st_size);
 
     return 0;
 }

@@ -11,7 +11,7 @@ int main ( int argvc, char const *argv[])   {
     if(id == 0) {
                     //child process
         printf("Child process starting.process id:5=%d , its p:%d\n",getpid(),getppid());
-        sleep(2);
+        sleep(12);
         printf("Child process Exiting.\n");
         
 
@@ -19,7 +19,7 @@ int main ( int argvc, char const *argv[])   {
     else {
                     //parent process
         printf("Parent process starting.process id: %d, its p:%d\n",getpid(),getppid());
-        sleep(12);
+        sleep(2);
         printf("parent process Exiting.\n");
         
     }

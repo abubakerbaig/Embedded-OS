@@ -23,7 +23,6 @@ int main(int argc, char const *argv[])  {
         scanf(" %[^\n]s", buffer);
         mq_send(mqfd, buffer, strlen(buffer), 0);
     }
-    
 
     mq_close(mqfd);
     return 0;

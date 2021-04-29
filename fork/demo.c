@@ -11,10 +11,10 @@ int main(int argc, char const *argv[])  {
     printf("after fork\n");
 
     if(0==id)   {
-        printf("returned 0(%d): pid-%d\tppid-%d\n",getpid(),getppid());
+        printf("CHILD---returned 0: pid-%d\tppid-%d\n",getpid(),getppid());
     }
     else    {
-         printf("returned 1(%d): pid-%d\tppid-%d\n",getpid(),getppid());
+         printf("PARENT---returned 1: pid-%d\tppid-%d\n",getpid(),getppid());
     }
 
     return 0;

@@ -1,17 +1,15 @@
-#include<stdio.h>  
-#include<string.h>
-#include<sys/types.h>
-#include<unistd.h>
+#include <stdio.h>  
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
 #include <sys/wait.h>
 
 
 int main(int argc, char const *argv[])  {
     int pipefd[2],pipefd2[2];
 
-   // printf("Entered tx and rx strings are : %s \t & \t %s\n",string1,string2);
-   
     pipe(pipefd);   //-1 if failed
-    pipe(pipefd2);
+    pipe(pipefd2);  //opening two pipe's
 
     int fork_id;
  
@@ -23,8 +21,6 @@ int main(int argc, char const *argv[])  {
 */
     if(0==fork_id)  {   //child process
 
-        char str[20];
-        char string2[20];
         int val[2],sum;
         
         printf("TWO NUMBERS Whos Sum is needed:\n");
@@ -36,19 +32,7 @@ int main(int argc, char const *argv[])  {
         close(pipefd[1]);
 
 
-/*
-        printf("string to transfer for child to parent:\n");
-        scanf(" %[^\n]s",string2);    
-    
-        write(pipefd[1],string2,strlen(string2)+1);
-    
-        close(pipefd[1]);
-*/
-                wait(NULL);     //wait for parent to sned data
-/*        
-        read(pipefd2[0],str,20);
-        printf("\nREceived string in child is: %s.\n",str);             //stiring transmit and receive 
- */     
+        wait(NULL);     //wait for parent to sned data     
 
         read(pipefd2[0],&sum,sizeof(sum));
         printf("Sum received form parent is : %d \n",sum);     
@@ -56,10 +40,8 @@ int main(int argc, char const *argv[])  {
         
 
     }
-    else    {   //parent process}
+    else    {   //parent process
 
-        char str[20];
-        char string1[20];
         int val[2],sum=0;        
         read(pipefd[0],&val,sizeof(val));
 
@@ -69,13 +51,8 @@ int main(int argc, char const *argv[])  {
         }
         close(pipefd[0]);
 
-        
         write(pipefd2[1],&sum,sizeof(sum));
- /*       printf("string to transfer for parent to child:\n\n");
-        scanf("%[^\n]s",string1);
 
-        write(pipefd2[1],string1,strlen(string1)+1);        
-*/
         close(pipefd2[1]);
 
     }

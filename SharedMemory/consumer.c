@@ -18,6 +18,8 @@ char *data;
 int main(int argc, char const *argv[])
 {
     //creating semaphore 
+      sem_unlink(SNAME1);
+      sem_unlink(SNAME2);    
     sem_t *sem_prod = sem_open(SNAME1, O_CREAT, 0600, 0);
     if(sem_prod == SEM_FAILED)  {
         perror("sen_open/producer");
@@ -40,17 +42,17 @@ int main(int argc, char const *argv[])
     while (1)
     {
         printf("Consumer: waiting for lock\n");
-        sem_wait(sem_prod); //wait for producer to produce something
+        sem_wait(sem_prod); //since sem= 0 ; wait for producer to produce something
         printf("Consumer: Accquiring lock \n Consumer: string received from shared memory is : %s\n", data);
         sleep(1);
         printf("Consumer: Realising lock\n");
         sem_post(sem_cons); //signal producer data read
         printf("Consumer: Relised lock\n");
     }
-    //   sem_close(SNAME1);
-    //    sem_close(SNAME2);
+       sem_close(sem_prod);
+       sem_close(sem_cons);
 
     shm_unlink("/CDACshmry");
-
+    printf("Exiting");
     return 0;
 }

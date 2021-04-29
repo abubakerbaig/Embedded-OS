@@ -5,6 +5,6 @@ int writing(int fd)  {
     printf("Enter String to write in a file:\n");
     scanf(" %[^\n]s",wstr);
 
-    return write(fd,wstr,64);
+    return write(fd,wstr,strlen(wstr));
     
 }

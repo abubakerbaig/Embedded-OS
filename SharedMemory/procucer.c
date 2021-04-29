@@ -20,6 +20,7 @@ char data[10];
 int main(int argc, char const *argv[])
 {
 //opening semaphore
+
   sem_t *sem_prod = sem_open(SNAME1, 0);
     if(sem_prod == SEM_FAILED)  {
         perror("sen_open/producer");
@@ -38,12 +39,12 @@ int main(int argc, char const *argv[])
   ftruncate(shmfd, 10 * sizeof(char));
 
   str = (char *)mmap(NULL, 10 * sizeof(char), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd, 0);
-  printf("producer: mmap return - %x\n", str);
+  //printf("producer: mmap return - %x\n", str);
 
   while (1)
   {
     printf("producer: checking for lock\n");
-    sem_wait(sem_cons); //wait for consumer to have an open slot
+    sem_wait(sem_cons); //since sem_cons= 1; wait for consumer to have an open slot
     printf("producer: Inside producer, accquired lock\nproducer: enter string to store in shared memory:\n");
     scanf("%s", data);
     strcpy(str, data);
@@ -53,9 +54,11 @@ int main(int argc, char const *argv[])
     sem_post(sem_prod); //signal that something is being produced
     printf("producer: realising Lock\n");
   }
-   sem_close(sem_prod);
-   sem_close(sem_cons);
-  shm_unlink("/CDACshmry");
+  sem_close(sem_prod);
+  sem_close(sem_cons);
 
+
+  shm_unlink("/CDACshmry");
+  printf("exiting");
   return 0;
 }
